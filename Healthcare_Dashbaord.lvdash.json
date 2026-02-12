@@ -1,0 +1,319 @@
+{
+  "datasets": [
+    {
+      "name": "dd418129",
+      "displayName": "gold_age_summary",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_age_summary"
+      ]
+    },
+    {
+      "name": "124c8123",
+      "displayName": "gold_top_diagnoses",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_top_diagnoses"
+      ]
+    },
+    {
+      "name": "e2eae9fc",
+      "displayName": "gold_daily_admissions",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_daily_admissions"
+      ]
+    },
+    {
+      "name": "805e4603",
+      "displayName": "gold_encounter_distribution",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_encounter_distribution"
+      ]
+    },
+    {
+      "name": "019f86f9",
+      "displayName": "gold_demographic_intensity",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_demographic_intensity"
+      ]
+    },
+    {
+      "name": "1c3cdb26",
+      "displayName": "gold_scorecard_metrics",
+      "queryLines": [
+        "SELECT * FROM healthcare_catalog.raw_data.gold_scorecard_metrics"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "f924f27b",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "total1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1c3cdb26",
+                  "fields": [
+                    {
+                      "name": "sum(total_unique_patients)",
+                      "expression": "SUM(`total_unique_patients`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total Patients"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_unique_patients)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "top-diagnosis",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "124c8123",
+                  "fields": [
+                    {
+                      "name": "sum(total_cases)",
+                      "expression": "SUM(`total_cases`)"
+                    },
+                    {
+                      "name": "diagnosis",
+                      "expression": "`diagnosis`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top Diagnosis"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(total_cases)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "diagnosis",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "daily-admissions",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e2eae9fc",
+                  "fields": [
+                    {
+                      "name": "monthly(admission_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `admission_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Daily Admissions"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(admission_date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "8b8e71b2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "805e4603",
+                  "fields": [
+                    {
+                      "name": "sum(visit_count)",
+                      "expression": "SUM(`visit_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(visit_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "2e0b7408",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "805e4603",
+                  "fields": [
+                    {
+                      "name": "visit_count",
+                      "expression": "`visit_count`"
+                    },
+                    {
+                      "name": "encounter_type",
+                      "expression": "`encounter_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "visit_count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "encounter_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "total-encounters",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1c3cdb26",
+                  "fields": [
+                    {
+                      "name": "sum(total_encounters)",
+                      "expression": "SUM(`total_encounters`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Total Encounters"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_encounters)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
